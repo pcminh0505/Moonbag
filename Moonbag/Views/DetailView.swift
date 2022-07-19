@@ -10,14 +10,16 @@
     Acknowledgement: Acknowledge the resources that you use here.
 */
 
-
 import SwiftUI
 
-@main
-struct MoonbagApp: App {
-    var body: some Scene {
-        WindowGroup {
-            LaunchView()
-        }
+struct DetailView: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    }
+}
+
+struct DetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailView()
     }
 }

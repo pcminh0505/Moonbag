@@ -18,7 +18,7 @@ import Lottie
 // LottieView implement Animated Icon retrieved from Lottie JSON in the same folder
 struct LottieView: UIViewRepresentable {
     var name: String
-    var loopMode: LottieLoopMode = .playOnce
+    var loopMode: LottieLoopMode
     var animationView = AnimationView()
     
     func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
@@ -48,6 +48,6 @@ struct LottieView: UIViewRepresentable {
 
 struct LottieView_Previews: PreviewProvider {
     static var previews: some View {
-        LottieView(name: "rocket")
+        LottieView(name: "rocket", loopMode: .playOnce)
     }
 }

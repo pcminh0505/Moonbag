@@ -15,9 +15,12 @@ import SwiftUI
 
 @main
 struct MoonbagApp: App {
+    @StateObject private var vm = HomeViewModel()
+
     var body: some Scene {
         WindowGroup {
             LaunchView()
+                .environmentObject(vm)
         }
     }
 }

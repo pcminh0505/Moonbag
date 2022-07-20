@@ -8,6 +8,7 @@
     Created  date: 19/07/2022
     Last modified: dd/mm/yyyy
     Acknowledgement:
+    - DesignCode.io: https://designcode.io/swiftui-advanced-handbook-http-request
     - CoinGeckoAPI URL: https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=7d
     - SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
 */
@@ -19,7 +20,6 @@ struct CoinModel: Identifiable, Codable {
     let id, symbol, name: String
     let image: String
     let currentPrice: Double
-    let isFavorited: Bool
     let priceChange24H: Double
     let priceChangePercentage24H: Double
     // Optional
@@ -36,6 +36,7 @@ struct CoinModel: Identifiable, Codable {
     let sparklineIn7D: SparklineIn7D?
     let priceChangePercentage7DInCurrency: Double?
     let currentHoldings: Double?
+    let isFavorited: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id, symbol, name, image, isFavorited
@@ -72,7 +73,6 @@ struct CoinModel: Identifiable, Codable {
             name: name,
             image: image,
             currentPrice: currentPrice,
-            isFavorited: isFavorited,
             priceChange24H: priceChange24H,
             priceChangePercentage24H: priceChangePercentage24H,
             marketCap: marketCap,
@@ -95,7 +95,8 @@ struct CoinModel: Identifiable, Codable {
             lastUpdated: lastUpdated,
             sparklineIn7D: sparklineIn7D,
             priceChangePercentage7DInCurrency: priceChangePercentage7DInCurrency,
-            currentHoldings: amount)
+            currentHoldings: amount,
+            isFavorited: isFavorited)
     }
 
     var currentHoldingsValue: Double {

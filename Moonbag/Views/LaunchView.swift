@@ -22,7 +22,7 @@ struct LaunchView: View {
             if self.isActive {
                 HomeView()
             } else {
-                LottieView(name: "rocket")
+                LottieView(name: "rocket", loopMode: .playOnce)
                     .frame(width: 350, height: 300)
                     
                 Text("Track and Manage Crypto Assets Easily")

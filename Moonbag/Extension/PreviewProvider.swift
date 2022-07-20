@@ -25,6 +25,8 @@ class DeveloperPreview {
 
     private init () { }
 
+    let homeVM = HomeViewModel()
+    
     // 19 Jun 2022 - 4:00 PM
     let coin = CoinModel(
         id: "bitcoin",
@@ -32,7 +34,6 @@ class DeveloperPreview {
         name: "Bitcoin",
         image: "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
         currentPrice: 21872,
-        isFavorited: false,
         priceChange24H: -326.3722145501306,
         priceChangePercentage24H: -1.47026,
         marketCap: 417799899762,
@@ -224,5 +225,6 @@ class DeveloperPreview {
             21921.71509997961
         ]),
         priceChangePercentage7DInCurrency: 9.367595687858161,
-        currentHoldings: 1.5)
+        currentHoldings: 1.5,
+        isFavorited: false)
 }

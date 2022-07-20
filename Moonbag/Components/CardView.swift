@@ -15,7 +15,8 @@ struct CardView: View {
             Text("\(coin.rank)")
                 .font(.caption)
                 .foregroundColor(Color.theme.secondaryText)
-            Circle()
+                .frame(minWidth: 30)
+            CoinImageView(coin: coin)
                 .frame(width: 30, height: 30)
             Text(coin.symbol.uppercased())
                 .font(.headline)
@@ -30,8 +31,8 @@ struct CardView: View {
                 Text(coin.priceChangePercentage24H.asPercentString())
                     .foregroundColor(
                     coin.priceChangePercentage24H >= 0 ?
-                    Color(uiColor: .systemGreen):
-                        Color(uiColor: .systemRed)
+                    Color(.systemGreen):
+                        Color(.systemRed)
                 )
             }
         }

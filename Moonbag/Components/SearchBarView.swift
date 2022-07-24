@@ -15,7 +15,7 @@ struct SearchBarView: View {
                 .foregroundColor(searchText.isEmpty ? Color.theme.secondaryText : Color.theme.accent)
 
             TextField("Search...", text: $searchText)
-                .foregroundColor(Color.theme.accent)
+                .foregroundColor(Color.theme.primaryText)
                 .overlay(
                 Image(systemName: "xmark.circle.fill")
                     .padding()

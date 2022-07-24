@@ -1,25 +1,84 @@
-/*
-    RMIT University Vietnam
-    Course: COSC2659 iOS Development
-    Semester: 2022B
-    Assessment: Assignment 1
-    Author: Pham Cong Minh
-    ID: s3818102
-    Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
-    Acknowledgement: Acknowledge the resources that you use here.
-*/
+//
+//  DetailView.swift
+//  Moonbag
+//
+//  Created by Minh Pham on 22/07/2022.
+//
 
 import SwiftUI
 
-struct DetailView: View {
+struct DetailLoadingView: View {
+    @Binding var coin: CoinModel?
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            if let coin = coin {
+                DetailView(coin: coin)
+            }
+        }
+    }
+}
+
+struct DetailView: View {
+    let coin: CoinModel
+    @StateObject var vm: DetailViewModel
+    
+    private let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+    ]
+    private let spacing: CGFloat = 30
+    
+    init(coin: CoinModel) {
+        self.coin = coin
+        _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))
+        print(coin)
+    }
+
+    var body: some View {
+        ScrollView {
+            Text(coin.symbol.uppercased())
+            VStack (spacing: 20) {
+                Text("")
+                    .frame(height: 150)
+
+                Text("Overview")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(Color.theme.accent)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Divider()
+                
+                LazyVGrid(columns: columns,
+                          alignment: .leading,
+                          spacing: spacing,
+                          pinnedViews: []) {
+                    ForEach(0..<6) { _ in
+                        StatisticsView(stats: StatisticsModel(title: "Title", value: "Value"))
+                    }
+                }
+                
+                Text("Additional")
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(Color.theme.accent)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Divider()
+                
+                
+            }
+        }
+            .navigationTitle(vm.coin.name)
+            .padding()
+
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView()
+        NavigationView {
+            DetailView(coin: dev.coin)
+        }
+
     }
 }

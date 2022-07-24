@@ -27,6 +27,7 @@ class DeveloperPreview {
 
     let homeVM = HomeViewModel()
     
+    let stats = StatisticsModel(title: "Market Cap", value: "1.5Bn")
     // 19 Jun 2022 - 4:00 PM
     let coin = CoinModel(
         id: "bitcoin",

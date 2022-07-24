@@ -20,11 +20,14 @@ struct LaunchView: View {
     var body: some View {
         VStack {
             if self.isActive {
-                HomeView()
+                NavigationView {
+                    HomeView()
+                        .navigationBarHidden(true)
+                }
             } else {
                 LottieView(name: "rocket", loopMode: .playOnce)
                     .frame(width: 350, height: 300)
-                    
+
                 Text("Track and Manage Crypto Assets Easily")
                     .foregroundColor(Color.theme.primaryText).opacity(opacity)
                     .font(.headline)
@@ -41,10 +44,10 @@ struct LaunchView: View {
                     }
                 }
                     .padding(.bottom, 100)
-                
+
             }
         }
-        .onAppear {
+            .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                 withAnimation {
                     self.opacity = 0.0

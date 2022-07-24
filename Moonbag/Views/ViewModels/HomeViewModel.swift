@@ -7,7 +7,7 @@
     ID: s3818102
     Created  date: 20/07/2022
     Last modified: dd/mm/yyyy
-    Acknowledgement: Acknowledge the resources that you use here.
+    Acknowledgement: SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
 */
 
 import Foundation
@@ -16,7 +16,7 @@ import Combine
 class HomeViewModel: ObservableObject {
     @Published var coinList: [CoinModel] = []
     @Published var watchList: [CoinModel] = []
-    
+    @Published var isLoading: Bool = false
     @Published var searchText: String = ""
 
     private let coinDataService = CoinDataService()
@@ -27,10 +27,38 @@ class HomeViewModel: ObservableObject {
     }
 
     func addSubcribers() {
-        coinDataService.$coinList
-            .sink { [weak self] (decodedCoins) in
-            self?.coinList = decodedCoins
+        // Update coinList
+        $searchText
+            .combineLatest(coinDataService.$coinList)
+            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
+            .map(filterByText)
+            .sink { [weak self](returnedCoins) in
+                self?.coinList = returnedCoins
+                self?.isLoading = false
             }
             .store(in: &cancellables)
     }
+    
+    func reloadData() {
+        isLoading = true
+        coinDataService.getCoinData()
+        HapticManager.notification(type: .success)
+    }
+    
+    private func filterByText(text: String, coins: [CoinModel]) -> [CoinModel] {
+        guard !text.isEmpty else {
+            return coins
+        }
+
+        let lowercasedText = text.lowercased()
+
+        return coins.filter { (coin) -> Bool in
+            return coin.name.lowercased().contains(lowercasedText) ||
+                coin.symbol.lowercased().contains(lowercasedText) ||
+                coin.id.lowercased().contains(lowercasedText)}
+    }
+    
+    
 }
+
+

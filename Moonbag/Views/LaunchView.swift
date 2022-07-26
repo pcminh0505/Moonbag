@@ -48,7 +48,7 @@ struct LaunchView: View {
             }
         }
             .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 withAnimation {
                     self.opacity = 0.0
                     self.isActive = true

@@ -22,55 +22,58 @@ struct DetailLoadingView: View {
 struct DetailView: View {
     let coin: CoinModel
     @StateObject var vm: DetailViewModel
-    
+
     private let columns: [GridItem] = [
         GridItem(.flexible()),
         GridItem(.flexible()),
     ]
     private let spacing: CGFloat = 30
-    
+
     init(coin: CoinModel) {
         self.coin = coin
         _vm = StateObject(wrappedValue: DetailViewModel(coin: coin))
-        print(coin)
     }
 
     var body: some View {
-        ScrollView {
-            Text(coin.symbol.uppercased())
-            VStack (spacing: 20) {
-                Text("")
-                    .frame(height: 150)
+        VStack (spacing: 20) {
+            HStack {
+                Text("\(coin.currentPrice.asCurrencyWith2Decimals())")
+                    .font(.title)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-                Text("Overview")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(Color.theme.accent)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
-                
-                LazyVGrid(columns: columns,
-                          alignment: .leading,
-                          spacing: spacing,
-                          pinnedViews: []) {
-                    ForEach(0..<6) { _ in
-                        StatisticsView(stats: StatisticsModel(title: "Title", value: "Value"))
-                    }
-                }
-                
-                Text("Additional")
-                    .font(.title)
-                    .bold()
-                    .foregroundColor(Color.theme.accent)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Divider()
-                
-                
+                ChangePercentageView(
+                    changePercentage: coin.priceChangePercentage24H,
+                    font: .title3
+                )
             }
+            
+            ChartView(coin: coin)
+                
+            
+            Text("Overview")
+                .font(.title)
+                .bold()
+                .foregroundColor(Color.theme.accent)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            LazyVGrid(columns: columns,
+                      alignment: .leading,
+                      spacing: spacing,
+                      pinnedViews: []) {
+                ForEach(vm.marketData) { stat in
+                    StatisticsView(stats: stat)
+                }
+            }
+
+            Text("Additional")
+                .font(.title)
+                .bold()
+                .foregroundColor(Color.theme.accent)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
             .navigationTitle(vm.coin.name)
             .padding()
-
     }
 }
 
@@ -79,6 +82,7 @@ struct DetailView_Previews: PreviewProvider {
         NavigationView {
             DetailView(coin: dev.coin)
         }
+            .preferredColorScheme(.dark)
 
     }
 }

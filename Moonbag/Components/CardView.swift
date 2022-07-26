@@ -23,30 +23,23 @@ struct CardView: View {
                     RoundedRectangle(cornerRadius: 2)
                         .fill(Color.theme.cardBackground)
                         .shadow(radius: 3)
-                        .frame(width: 15, height: 15, alignment: .center)
+                        .frame(width: 23, height: 20, alignment: .center)
                         .overlay(
                         Text("\(coin.rank)")
                             .foregroundColor(Color.theme.secondaryText)
-                            .font(.caption)
+                            .font(.caption2)
                     )
 
 
                     Text(coin.symbol.uppercased())
                         .font(.caption)
                         .foregroundColor(Color.theme.secondaryText)
-                    HStack {
-                        Image(systemName: "triangle.fill")
-                            .font(.caption2)
-                            .rotationEffect(Angle(degrees: coin.priceChangePercentage24H >= 0 ? 0 : 180))
-                        Text(coin.priceChangePercentage24H.asPercentString())
-                            .font(.caption)
-                    }
-                        .foregroundColor(
-                        coin.priceChangePercentage24H >= 0 ?
-                        Color(.systemGreen):
-                            Color(.systemRed)
-
-                    ) }
+                    ChangePercentageView(
+                        changePercentage: coin.priceChangePercentage24H,
+                        font: .caption
+                    )
+                    
+                }
             }
             Spacer()
 

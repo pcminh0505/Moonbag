@@ -23,15 +23,15 @@ struct CoinDetailModel: Codable {
         case sentimentVotesDownPercentage = "sentiment_votes_down_percentage"
     }
 
-//    var readableDescription: String? {
-//        return description?.en?.removingHTMLOccurances
-//    }
+    var readableDescription: String? {
+        return description?.en?.removingHTMLOccurances
+    }
 }
 
 struct Links: Codable {
     let homepage: [String]? // Main info
     let blockchainSite, announcementURL: [String]? // Explorer & Announcement
-    let twitterScreenName, facebookUsername, telegramChannelIdentifier: String? // Community
+    let twitterScreenName, facebookUsername, telegramChannelIdentifier, subredditUrl: String? // Community
     let reposURL: ReposURL? // Developer src code
 
     enum CodingKeys: String, CodingKey {
@@ -41,6 +41,7 @@ struct Links: Codable {
         case twitterScreenName = "twitter_screen_name"
         case facebookUsername = "facebook_username"
         case telegramChannelIdentifier = "telegram_channel_identifier"
+        case subredditUrl = "subreddit_url"
         case reposURL = "repos_url"
     }
 }

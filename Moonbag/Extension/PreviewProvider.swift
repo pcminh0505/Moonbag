@@ -226,6 +226,5 @@ class DeveloperPreview {
             21921.71509997961
         ]),
         priceChangePercentage7DInCurrency: 9.367595687858161,
-        currentHoldings: 1.5,
         isFavorited: false)
 }

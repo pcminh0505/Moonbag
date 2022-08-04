@@ -22,15 +22,16 @@ struct ChartView: View {
     
 
     var body: some View {
-        LineView(
-            data: coin.sparklineIn7D?.price ?? [],
-            title: "",
-            style: chartStyle
-        )
+        ZStack {
+            LineView(
+                data: coin.sparklineIn7D?.price ?? [],
+                title: "",
+                style: chartStyle
+            )
+        }
         .frame(maxHeight: 350)
-        .padding(.top, -50)
-        .padding(.bottom, 50)
-        
+            .padding(.top, -50)
+            .padding(.bottom, 50)
     }
 }
 

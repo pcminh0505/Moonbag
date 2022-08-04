@@ -34,8 +34,18 @@ struct HomeView: View {
                 listColumns
 
                 if (vm.coinList.count == 0) {
-                    Text("Fetching data...")
-                        .font(.caption)
+                    VStack {
+                        HStack {
+                            Image(systemName: "wifi.slash")
+                            Text("No Internet Connection")
+                        }
+                        .padding()
+                        Text("Please connect to Wifi or Cellular Data!")
+                    }
+                        .foregroundColor(Color.theme.secondaryText)
+                        .font(.headline)
+                        .padding()
+
                 } else {
                     if !showWatchlist {
                         coinList

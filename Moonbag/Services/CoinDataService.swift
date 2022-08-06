@@ -16,6 +16,7 @@
 import SwiftUI
 import Combine
 
+// CoinDataService call to /coins/market API to get top 150 coins
 class CoinDataService: ObservableObject {
     @Published var coinList: [CoinModel] = []
 

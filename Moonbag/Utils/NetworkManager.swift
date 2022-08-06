@@ -13,6 +13,7 @@
 import Foundation
 import Combine
 
+// NetworkManager creates an interface for Services to call and fetch data
 class NetworkManager {
     static func download(url: URL) -> AnyPublisher<Data, Error> {
         return URLSession.shared.dataTaskPublisher(for: url)

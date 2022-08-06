@@ -13,6 +13,7 @@
 import Foundation
 import SwiftUI
 
+// HapticManager enables vibration when reloading
 class HapticManager {
     static private let generator = UINotificationFeedbackGenerator()
     

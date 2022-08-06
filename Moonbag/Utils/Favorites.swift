@@ -14,6 +14,7 @@
 
 import Foundation
 
+// Favorites class keep track of favorite list accross the app 
 class Favorites: ObservableObject {
     private var coins: Set<String>
     private let saveKey = "Favorites"

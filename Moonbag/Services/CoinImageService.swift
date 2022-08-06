@@ -13,6 +13,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+// CoinImageService returns the image data from url inside CoinModel
 class CoinImageService {
     @Published var image: UIImage? = nil
 

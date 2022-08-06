@@ -14,8 +14,6 @@ import Foundation
 import Combine
 
 class DetailViewModel: ObservableObject {
-
-//    @Published var overviewData: [StatisticsModel] = []
     @Published var marketData: [StatisticsModel] = []
     @Published var communityData: [StatisticsModel] = []
     @Published var securityData: [StatisticsModel] = []
@@ -42,6 +40,7 @@ class DetailViewModel: ObservableObject {
     private func addSubcribers() {
         coinDetailService.$coinDetail
             .combineLatest($coin)
+            // Mapping data from both CoinModel and CoinDetailModel for desired output
             .map({ (coinDetailModel, coinModel) -> (
                 market: [StatisticsModel],
                 security: [StatisticsModel],

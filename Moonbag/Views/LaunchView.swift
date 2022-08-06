@@ -21,11 +21,13 @@ struct LaunchView: View {
     var body: some View {
         VStack {
             if self.isActive {
+                // Load main view
                 NavigationView {
                     HomeView()
                         .navigationBarHidden(true)
                 }
             } else {
+                // Load launch/splash view
                 LottieView(name: "rocket", loopMode: .playOnce)
                     .frame(width: 350, height: 300)
 
@@ -33,6 +35,7 @@ struct LaunchView: View {
                     .foregroundColor(Color.theme.primaryText).opacity(opacity)
                     .font(.headline)
                     .onAppear {
+                    // Adjust in and out opacity animation
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
                         withAnimation {
                             self.opacity = 1.0

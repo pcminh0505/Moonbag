@@ -16,6 +16,7 @@
 import SwiftUI
 import Combine
 
+// MarketService call to /global API to get the global market stats
 class MarketService: ObservableObject {
     @Published var marketData: MarketDataModel? = nil
 

@@ -12,6 +12,7 @@
 import SwiftUI
 import Combine
 
+// CoinDetailService call to /coins/{id} API to get token's detail information
 class CoinDetailService: ObservableObject {
     @Published var coinDetail: CoinDetailModel? = nil
 

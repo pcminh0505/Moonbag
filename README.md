@@ -4,7 +4,7 @@ A lite and customized version of [CoinMarketCap](https://coinmarketcap.com/mobil
 
 ## 📦 Package Dependencies
 
-Please double check and add those into the project before build
+Please double check and add those into the project. `Reset package caches` and `Update package caches` when there's any problem with packages before building the app.
 
 - [Lottie](https://github.com/airbnb/lottie-ios)
 - [SwiftUICharts](https://github.com/AppPear/ChartView)

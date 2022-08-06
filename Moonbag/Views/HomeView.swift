@@ -15,10 +15,24 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
+
+enum ListID: String, CaseIterable, Hashable, Identifiable {
+    case coinList = "coinList"
+    case watchList = "watchList"
+
+    var id: Self {
+        self
+    }
+}
+
+
+@available(iOS 15.0, *)
 struct HomeView: View {
     @EnvironmentObject private var vm: HomeViewModel
     @EnvironmentObject var favorite: Favorites
 
+    @State private var listID: ListID = .coinList
+    
     @State private var showWatchlist: Bool = false
     @State private var selectedCoin: CoinModel? = nil
     @State private var isViewingDetail: Bool = false
@@ -69,7 +83,7 @@ struct HomeView: View {
                                     Text("No favorite coin found!")
                                 }
                                     .padding()
-                                Text("Start adding by swipping left on the main list" + "\n" + "or clicking ⭐️ in detail view")
+                                Text("Start adding by swipping right on home list rows" + "\n" + "or clicking ⭐️ in detail view")
                                     .font(.caption)
                                     .multilineTextAlignment(.center)
                             }
@@ -77,7 +91,6 @@ struct HomeView: View {
                                 .font(.headline)
                                 .padding()
                         }
-
                     }
                 }
             }
@@ -129,10 +142,42 @@ extension HomeView {
 
     private var listColumns: some View {
         HStack {
-            Text("Coin")
-            Spacer()
-            Text("Price")
+            HStack (spacing: 4) {
+                Text("Coin")
+                Image(systemName: "chevron.down")
+                    .opacity((vm.sortOption == .rank || vm.sortOption == .rankReversed) ? 1.0 : 0.0)
+                    .rotationEffect(Angle(degrees: vm.sortOption == .rank ? 0 : 180))
+            }
+                .onTapGesture {
+                withAnimation(.default) {
+                    vm.sortOption = vm.sortOption == .rank ? .rankReversed : .rank
+                }
+            }
 
+            Spacer()
+            HStack (spacing: 4) {
+                Text("24h Change")
+                Image(systemName: "chevron.down")
+                    .opacity((vm.sortOption == .change24h || vm.sortOption == .change24hReversed) ? 1.0 : 0.0)
+                    .rotationEffect(Angle(degrees: vm.sortOption == .change24h ? 0 : 180))
+            }
+                .onTapGesture {
+                withAnimation(.default) {
+                    vm.sortOption = vm.sortOption == .change24h ? .change24hReversed : .change24h
+                }
+            }
+            Spacer()
+            HStack (spacing: 4) {
+                Image(systemName: "chevron.down")
+                    .opacity((vm.sortOption == .price || vm.sortOption == .priceReversed) ? 1.0 : 0.0)
+                    .rotationEffect(Angle(degrees: vm.sortOption == .price ? 0 : 180))
+                Text("Price")
+            }
+                .onTapGesture {
+                withAnimation(.default) {
+                    vm.sortOption = vm.sortOption == .price ? .priceReversed : .price
+                }
+            }
             Button {
                 withAnimation(.linear(duration: 1.0)) {
                     vm.reloadData()

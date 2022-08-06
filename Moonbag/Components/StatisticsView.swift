@@ -16,12 +16,13 @@ struct StatisticsView: View {
     let isHeadline: Bool
     
     var body: some View {
-        VStack (alignment: .leading, spacing: 4) {
+        VStack (alignment: isHeadline ? .center :.leading, spacing: 4) {
             Text(stats.title)
                 .font(isHeadline ? .headline : .caption)
                 .foregroundColor(isHeadline ? Color.theme.primaryText : Color.theme.secondaryText)
             Text(stats.value)
-                .font(isHeadline ? .title2 : .headline)
+                
+                .font(.headline)
                 .foregroundColor(isHeadline ? Color.theme.accent : Color.theme.primaryText)
         }
     }

@@ -25,7 +25,6 @@
 		24876F0828885892004D831A /* CoinImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24876F0728885892004D831A /* CoinImageView.swift */; };
 		24876F0D28885AB4004D831A /* CoinImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24876F0C28885AB4004D831A /* CoinImageService.swift */; };
 		24A1D77328865AFC00908B82 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A1D77228865AFC00908B82 /* HomeView.swift */; };
-		24A1D7782886616F00908B82 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24A1D7772886616F00908B82 /* Lottie */; };
 		24A1D77B28866B2C00908B82 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A1D77A28866B2C00908B82 /* Color.swift */; };
 		24A1D77D28866C5E00908B82 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A1D77C28866C5E00908B82 /* LottieView.swift */; };
 		24BEF5F0289D1E7E00E9E89F /* HomeStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BEF5EF289D1E7E00E9E89F /* HomeStatsView.swift */; };
@@ -39,10 +38,11 @@
 		24C83AFC2885B6B100056E99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C83AFB2885B6B100056E99 /* Assets.xcassets */; };
 		24C83AFF2885B6B100056E99 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24C83AFE2885B6B100056E99 /* Preview Assets.xcassets */; };
 		24DEB6D02888729C003C42FD /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24DEB6CF2888729C003C42FD /* SearchBarView.swift */; };
+		24DEEBFF289E838700E9A0B0 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEEBFE289E838700E9A0B0 /* SwiftUICharts */; };
+		24DEEC02289E83AE00E9A0B0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 24DEEC01289E83AE00E9A0B0 /* Lottie */; };
 		24EFAC57288E961A00198C21 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EFAC56288E961A00198C21 /* ChartView.swift */; };
 		24EFAC59288EBA7200198C21 /* ChangePercentageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24EFAC58288EBA7200198C21 /* ChangePercentageView.swift */; };
 		24F626132889A59800F19B54 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24F626122889A59800F19B54 /* HapticManager.swift */; };
-		24F626192889AD8700F19B54 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 24F626182889AD8700F19B54 /* SwiftUICharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,8 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24F626192889AD8700F19B54 /* SwiftUICharts in Frameworks */,
-				24A1D7782886616F00908B82 /* Lottie in Frameworks */,
+				24DEEBFF289E838700E9A0B0 /* SwiftUICharts in Frameworks */,
+				24DEEC02289E83AE00E9A0B0 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,8 +242,8 @@
 			);
 			name = Moonbag;
 			packageProductDependencies = (
-				24A1D7772886616F00908B82 /* Lottie */,
-				24F626182889AD8700F19B54 /* SwiftUICharts */,
+				24DEEBFE289E838700E9A0B0 /* SwiftUICharts */,
+				24DEEC01289E83AE00E9A0B0 /* Lottie */,
 			);
 			productName = Moonbag;
 			productReference = 24C83AF42885B6B000056E99 /* Moonbag.app */;
@@ -274,8 +274,8 @@
 			);
 			mainGroup = 24C83AEB2885B6B000056E99;
 			packageReferences = (
-				24A1D7762886616F00908B82 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				24F626172889AD8700F19B54 /* XCRemoteSwiftPackageReference "ChartView" */,
+				24DEEBFD289E838700E9A0B0 /* XCRemoteSwiftPackageReference "ChartView" */,
+				24DEEC00289E83AE00E9A0B0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 24C83AF52885B6B000056E99 /* Products */;
 			projectDirPath = "";
@@ -472,7 +472,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -482,7 +482,7 @@
 				PRODUCT_NAME = Moonbag;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -503,7 +503,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -513,7 +513,7 @@
 				PRODUCT_NAME = Moonbag;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -541,34 +541,34 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		24A1D7762886616F00908B82 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		24F626172889AD8700F19B54 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		24DEEBFD289E838700E9A0B0 /* XCRemoteSwiftPackageReference "ChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AppPear/ChartView";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 1.5.5;
+			};
+		};
+		24DEEC00289E83AE00E9A0B0 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 3.4.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		24A1D7772886616F00908B82 /* Lottie */ = {
+		24DEEBFE289E838700E9A0B0 /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 24A1D7762886616F00908B82 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
-		24F626182889AD8700F19B54 /* SwiftUICharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 24F626172889AD8700F19B54 /* XCRemoteSwiftPackageReference "ChartView" */;
+			package = 24DEEBFD289E838700E9A0B0 /* XCRemoteSwiftPackageReference "ChartView" */;
 			productName = SwiftUICharts;
+		};
+		24DEEC01289E83AE00E9A0B0 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24DEEC00289E83AE00E9A0B0 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

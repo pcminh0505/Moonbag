@@ -16,25 +16,25 @@
 import SwiftUI
 import Combine
 
-class CoinDataService: ObservableObject {
-    @Published var coinList: [CoinModel] = []
+class MarketService: ObservableObject {
+    @Published var marketData: MarketDataModel? = nil
 
-    var coinSubcription: AnyCancellable?
+    var marketDataSubcription: AnyCancellable?
 
     init () {
-        getCoinData()
+        getData()
     }
 
-    func getCoinData() {
-        guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=150&page=1&sparkline=true&price_change_percentage=7d")
+    func getData() {
+        guard let url = URL(string: "https://api.coingecko.com/api/v3/global")
             else { return }
 
-        coinSubcription = NetworkManager.download(url: url)
-            .decode(type: [CoinModel].self, decoder: JSONDecoder())
+        marketDataSubcription = NetworkManager.download(url: url)
+            .decode(type: GlobalData.self, decoder: JSONDecoder())
             .sink(receiveCompletion: NetworkManager.handleCompletion,
-                  receiveValue: { [weak self] (returnedCoins) in
-                      self?.coinList = returnedCoins
-                      self?.coinSubcription?.cancel()
+                  receiveValue: { [weak self] (returnedData) in
+                      self?.marketData = returnedData.data
+                      self?.marketDataSubcription?.cancel()
                   })
     }
 }

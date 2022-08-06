@@ -6,7 +6,7 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
+    Last modified: 06/08/2022
     Acknowledgement: SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
 */
 

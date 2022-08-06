@@ -6,7 +6,7 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
+    Last modified: 06/08/2022
     Acknowledgement:
     - DesignCode.io: https://designcode.io/swiftui-advanced-handbook-http-request
     - CoinGeckoAPI URL: https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=7d
@@ -36,10 +36,9 @@ struct CoinModel: Identifiable, Codable {
     let lastUpdated: String?
     let sparklineIn7D: SparklineIn7D?
     let priceChangePercentage7DInCurrency: Double?
-    let isFavorited: Bool?
 
     enum CodingKeys: String, CodingKey {
-        case id, symbol, name, image, isFavorited
+        case id, symbol, name, image
         case currentPrice = "current_price"
         case marketCap = "market_cap"
         case marketCapRank = "market_cap_rank"

@@ -6,7 +6,7 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 20/07/2022
-    Last modified: dd/mm/yyyy
+    Last modified: 06/08/2022
     Acknowledgement: SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
 */
 
@@ -15,11 +15,13 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     @Published var coinList: [CoinModel] = []
-    @Published var watchList: [CoinModel] = []
     @Published var isLoading: Bool = false
     @Published var searchText: String = ""
+    @Published var statistics: [StatisticsModel] = []
 
+    
     private let coinDataService = CoinDataService()
+    private let marketDataService = MarketService()
     private var cancellables = Set<AnyCancellable>()
 
     init () {
@@ -35,6 +37,31 @@ class HomeViewModel: ObservableObject {
             .sink { [weak self](returnedCoins) in
                 self?.coinList = returnedCoins
                 self?.isLoading = false
+            }
+            .store(in: &cancellables)
+        
+        marketDataService.$marketData
+            .map({ (marketDataModel) -> [StatisticsModel] in
+                var stats: [StatisticsModel] = []
+                
+                guard let data = marketDataModel else {
+                    return stats
+                }
+                
+                let marketCap = StatisticsModel(title: "Market Cap", value: data.marketCap)
+                let volume = StatisticsModel(title: "24h Volume", value: data.volume)
+                let btcDominance = StatisticsModel(title: "BTC Dom", value: data.btcDominance)
+                
+                stats.append(contentsOf: [
+                    marketCap,
+                    volume,
+                    btcDominance
+                ])
+            
+                return stats
+            })
+            .sink { [weak self] (returnedData) in
+                self?.statistics = returnedData
             }
             .store(in: &cancellables)
     }
@@ -57,8 +84,6 @@ class HomeViewModel: ObservableObject {
                 coin.symbol.lowercased().contains(lowercasedText) ||
                 coin.id.lowercased().contains(lowercasedText)}
     }
-    
-    
 }
 
 

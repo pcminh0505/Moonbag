@@ -1,12 +1,17 @@
-//
-//  CardView.swift
-//  Moonbag
-//
-//  Created by Minh Pham on 19/07/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 1
+    Author: Pham Cong Minh
+    ID: s3818102
+    Created  date: 19/07/2022
+    Last modified: 06/08/2022
+*/
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct CardView: View {
     let coin: CoinModel
 
@@ -38,7 +43,6 @@ struct CardView: View {
                         changePercentage: coin.priceChangePercentage24H,
                         font: .caption
                     )
-                    
                 }
             }
             Spacer()
@@ -54,10 +58,10 @@ struct CardView: View {
         }
             .font(.subheadline)
             .background(Color.theme.background)
-
     }
 }
 
+@available(iOS 15.0, *)
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         Group {

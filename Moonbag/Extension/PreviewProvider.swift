@@ -6,7 +6,7 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
+    Last modified: 06/08/2022
     Acknowledgement: SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
 */
 
@@ -26,7 +26,7 @@ class DeveloperPreview {
     private init () { }
 
     let homeVM = HomeViewModel()
-    
+
     let stats = StatisticsModel(title: "Market Cap", value: "1.5Bn")
     // 19 Jun 2022 - 4:00 PM
     let coin = CoinModel(
@@ -225,6 +225,6 @@ class DeveloperPreview {
             21896.990867396315,
             21921.71509997961
         ]),
-        priceChangePercentage7DInCurrency: 9.367595687858161,
-        isFavorited: false)
+        priceChangePercentage7DInCurrency: 9.367595687858161
+    )
 }

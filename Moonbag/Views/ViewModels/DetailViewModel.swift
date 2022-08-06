@@ -1,9 +1,14 @@
-//
-//  DetailViewModel.swift
-//  Moonbag
-//
-//  Created by Minh Pham on 24/07/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 1
+    Author: Pham Cong Minh
+    ID: s3818102
+    Created  date: 24/07/2022
+    Last modified: 06/08/2022
+    Acknowledgement: SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
+*/
 
 import Foundation
 import Combine
@@ -20,6 +25,8 @@ class DetailViewModel: ObservableObject {
 
     @Published var description: String? = nil
     @Published var homepage: String? = nil
+
+    @Published var sentimentVotesUpPercentage: Double? = nil
 
 
     @Published var coin: CoinModel
@@ -42,7 +49,8 @@ class DetailViewModel: ObservableObject {
                 description: String?,
                 homepage: String?,
                 blogs: [String]?,
-                explorers: [String]?) in
+                explorers: [String]?,
+                sentimentVotesUpPercentage: Double?) in
 
             // Market Data
             let marketCap = "$" + (coinModel.marketCap.formattedWithAbbreviations())
@@ -104,7 +112,9 @@ class DetailViewModel: ObservableObject {
             let blogs = coinDetailModel?.links?.announcementURL?.filter { !$0.isEmpty }
             let explorers = coinDetailModel?.links?.blockchainSite?.filter { !$0.isEmpty }
 
-            return (marketData, developerData, communityData, description, homepage, blogs, explorers)
+            let sentimentPercentageUp = coinDetailModel?.sentimentVotesUpPercentage
+
+            return (marketData, developerData, communityData, description, homepage, blogs, explorers, sentimentPercentageUp)
         })
             .sink { [weak self] (returnedData) in
             self?.marketData = returnedData.market
@@ -114,6 +124,7 @@ class DetailViewModel: ObservableObject {
             self?.homepage = returnedData.homepage
             self?.blogs = returnedData.blogs
             self?.explorers = returnedData.explorers
+            self?.sentimentVotesUpPercentage = returnedData.sentimentVotesUpPercentage
         }
             .store(in: &cancellables)
     }

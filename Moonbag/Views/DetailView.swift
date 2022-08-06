@@ -1,12 +1,19 @@
-//
-//  DetailView.swift
-//  Moonbag
-//
-//  Created by Minh Pham on 22/07/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 1
+    Author: Pham Cong Minh
+    ID: s3818102
+    Created  date: 22/07/2022
+    Last modified: 06/08/2022
+    Acknowledgement:
+    - SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
+*/
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct DetailLoadingView: View {
     @Binding var coin: CoinModel?
 
@@ -19,9 +26,11 @@ struct DetailLoadingView: View {
     }
 }
 
+@available(iOS 15.0, *)
 struct DetailView: View {
     let coin: CoinModel
     @StateObject var vm: DetailViewModel
+    @EnvironmentObject var favorite: Favorites
 
     @State private var isFullDescriptionShowing: Bool = false
 
@@ -53,109 +62,120 @@ struct DetailView: View {
                 }
 
                 ChartView(coin: coin)
+                
 
                 VStack {
-                    Text("Overview")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(Color.theme.accent)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    // Overview section + Description in English
+                    Group {
+                        Text("Overview")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(Color.theme.accent)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
-
-                    VStack (alignment: .leading) {
-                        if let coinDescription = vm.description, !coinDescription.isEmpty {
-                            Text(coinDescription)
-                                .lineLimit(isFullDescriptionShowing ? nil : 5)
-                                .font(.callout)
-                                .foregroundColor(Color.theme.secondaryText)
-                                .onTapGesture {
-                                withAnimation(.easeInOut) {
-                                    isFullDescriptionShowing.toggle()
+                        VStack (alignment: .leading) {
+                            if let coinDescription = vm.description, !coinDescription.isEmpty {
+                                Text(coinDescription)
+                                    .lineLimit(isFullDescriptionShowing ? nil : 5)
+                                    .font(.callout)
+                                    .foregroundColor(Color.theme.secondaryText)
+                                    .onTapGesture {
+                                    withAnimation(.easeInOut) {
+                                        isFullDescriptionShowing.toggle()
+                                    }
+                                }
+                                Button {
+                                    withAnimation(.easeInOut) {
+                                        isFullDescriptionShowing.toggle()
+                                    }
+                                } label: {
+                                    Text(isFullDescriptionShowing ? "Collapse" : "Read more...")
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.vertical, 2)
                                 }
                             }
-                            Button {
-                                withAnimation(.easeInOut) {
-                                    isFullDescriptionShowing.toggle()
-                                }
-                            } label: {
-                                Text(isFullDescriptionShowing ? "Collapse" : "Read more...")
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                    .padding(.vertical, 2)
+                        }
+                            .padding(.vertical, 5)
+
+
+                        LazyVGrid(columns: columns,
+                                  alignment: .leading,
+                                  spacing: spacing,
+                                  pinnedViews: []) {
+                            ForEach(vm.marketData) { stat in
+                                StatisticsView(stats: stat, isHeadline: false)
                             }
                         }
-                    }
-                        .padding(.vertical, 5)
-
-
-                    LazyVGrid(columns: columns,
-                              alignment: .leading,
-                              spacing: spacing,
-                              pinnedViews: []) {
-                        ForEach(vm.marketData) { stat in
-                            StatisticsView(stats: stat)
+                        if let sentimentUp = vm.sentimentVotesUpPercentage, !String(format: "%f", sentimentUp).isEmpty {
+                            CircleProgressBar(currentProgress: sentimentUp*0.75/100)
                         }
                     }
-                    // Explorers Info
-                    Text("Explorers")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(Color.theme.accent)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Group {
+                        // Explorers Info
+                        Text("Explorers")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(Color.theme.accent)
+                            .frame(maxWidth: .infinity, alignment: .leading)
 
 
-                    VStack (alignment: .leading, spacing: 20) {
-                        if let explorers = vm.explorers, !explorers.isEmpty {
-                            ForEach(explorers, id: \.self) { link in
-                                if !link.isEmpty {
-                                    let url = URL(string: link)
-                                    Link(destination: url!) {
-                                        HStack {
-                                            Text(link)
-                                                .lineLimit(1)
-                                            Spacer()
-                                            Image(systemName: "link")
+                        VStack (alignment: .leading, spacing: 20) {
+                            if let explorers = vm.explorers, !explorers.isEmpty {
+                                ForEach(explorers, id: \.self) { link in
+                                    if !link.isEmpty {
+                                        let url = URL(string: link)
+                                        Link(destination: url!) {
+                                            HStack {
+                                                Text(link)
+                                                    .lineLimit(1)
+                                                Spacer()
+                                                Image(systemName: "link")
+                                            }
                                         }
                                     }
                                 }
                             }
+                            else {
+                                Text("N/A")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
                         }
-                        else {
-                            Text("N/A")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                            .padding(.vertical, 5)
                     }
-                        .padding(.vertical, 5)
 
-                    // Blogs Info
-                    Text("Blogs")
-                        .font(.title)
-                        .bold()
-                        .foregroundColor(Color.theme.accent)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
-
-                    VStack (alignment: .leading, spacing: 20) {
-                        if let blogs = vm.blogs, !blogs.isEmpty  {
-                            ForEach(blogs, id: \.self) { link in
-                                if !link.isEmpty {
-                                    let url = URL(string: link)
-                                    Link(destination: url!) {
-                                        HStack {
-                                            Text(link)
-                                                .lineLimit(1)
-                                            Spacer()
-                                            Image(systemName: "link")
+                    Group {
+                        // Blogs Info
+                        Text("Blogs")
+                            .font(.title)
+                            .bold()
+                            .foregroundColor(Color.theme.accent)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        VStack (alignment: .leading, spacing: 20) {
+                            if let blogs = vm.blogs, !blogs.isEmpty {
+                                ForEach(blogs, id: \.self) { link in
+                                    if !link.isEmpty {
+                                        let url = URL(string: link)
+                                        Link(destination: url!) {
+                                            HStack {
+                                                Text(link)
+                                                    .lineLimit(1)
+                                                Spacer()
+                                                Image(systemName: "link")
+                                            }
                                         }
                                     }
                                 }
+                            } else {
+                                Text("N/A")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                        } else {
-                            Text("N/A")
-                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                            .padding(.vertical, 5)
+
                     }
-                        .padding(.vertical, 5)
+
 
                     // Security Info
                     Text("Security")
@@ -169,7 +189,7 @@ struct DetailView: View {
                               spacing: spacing,
                               pinnedViews: []) {
                         ForEach(vm.securityData) { stat in
-                            StatisticsView(stats: stat)
+                            StatisticsView(stats: stat, isHeadline: false)
                         }
                     }
                     // Social Media Links
@@ -208,6 +228,19 @@ struct DetailView: View {
                 .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing, content: {
                     HStack {
+                        Button {
+                            if favorite.contains(coin) {
+                                favorite.remove(coin)
+                            } else {
+                                favorite.add(coin)
+                            }
+                        } label: {
+                            favorite.contains(coin) ?
+                            Image(systemName: "star.fill").foregroundColor(Color.yellow)
+                            :
+                                Image(systemName: "star").foregroundColor(Color.yellow)
+
+                        }
                         Text(vm.coin.symbol.uppercased())
                             .font(.headline)
                             .foregroundColor(Color.theme.secondaryText)
@@ -219,12 +252,13 @@ struct DetailView: View {
         }
     }
 }
-
+@available(iOS 15.0, *)
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DetailView(coin: dev.coin)
         }
             .preferredColorScheme(.light)
+            .environmentObject(Favorites())
     }
 }

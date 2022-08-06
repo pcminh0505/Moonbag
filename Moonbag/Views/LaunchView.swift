@@ -6,13 +6,14 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
-    Acknowledgement: Acknowledge the resources that you use here.
+    Last modified: 06/08/2022
+    Acknowledgement: Mobiraft (https://mobiraft.com/ios/swiftui/how-to-add-splash-screen-in-swiftui/)
 */
 
 import SwiftUI
 import Lottie
 
+@available(iOS 15.0, *)
 struct LaunchView: View {
     @State var isActive: Bool = false
     @State var opacity = 0.0

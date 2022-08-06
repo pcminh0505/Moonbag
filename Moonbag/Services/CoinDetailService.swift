@@ -1,9 +1,13 @@
-//
-//  CoinDetailService.swift
-//  Moonbag
-//
-//  Created by Minh Pham on 23/07/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 1
+    Author: Pham Cong Minh
+    ID: s3818102
+    Created  date: 23/07/2022
+    Last modified: 06/08/2022
+*/
 
 import SwiftUI
 import Combine

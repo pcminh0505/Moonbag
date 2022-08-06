@@ -6,10 +6,10 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
+    Last modified: 06/08/2022
     Acknowledgement:
-    Lottie File: https://lottiefiles.com/45722-rocket-loader
-    Lottie Tutorial: https://designcode.io/swiftui-handbook-lottie-animation
+    - Lottie File: https://lottiefiles.com/45722-rocket-loader
+    - Lottie Tutorial: https://designcode.io/swiftui-handbook-lottie-animation
 */
 
 import SwiftUI

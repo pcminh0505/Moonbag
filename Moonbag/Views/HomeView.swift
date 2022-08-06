@@ -6,14 +6,18 @@
     Author: Pham Cong Minh
     ID: s3818102
     Created  date: 19/07/2022
-    Last modified: dd/mm/yyyy
-    Acknowledgement: Acknowledge the resources that you use here.
+    Last modified: 06/08/2022
+    Acknowledgement:
+    - SwiftUI Thinking (https://www.youtube.com/c/SwiftfulThinking)
+    - HackingWithSwift (https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-custom-swipe-action-buttons-to-a-list-row)
 */
 
 import SwiftUI
 
+@available(iOS 15.0, *)
 struct HomeView: View {
     @EnvironmentObject private var vm: HomeViewModel
+    @EnvironmentObject var favorite: Favorites
 
     @State private var showWatchlist: Bool = false
     @State private var selectedCoin: CoinModel? = nil
@@ -29,7 +33,8 @@ struct HomeView: View {
                 // Header
                 homeHeader
                 SearchBarView(searchText: $vm.searchText)
-
+                HomeStatsView()
+                    .padding(.vertical, 10)
                 // Body
                 listColumns
 
@@ -39,7 +44,7 @@ struct HomeView: View {
                             Image(systemName: "wifi.slash")
                             Text("No Internet Connection")
                         }
-                        .padding()
+                            .padding()
                         Text("Please connect to Wifi or Cellular Data!")
                     }
                         .foregroundColor(Color.theme.secondaryText)
@@ -53,8 +58,26 @@ struct HomeView: View {
 
                     }
                     if showWatchlist {
-                        watchList
-                            .transition(.move(edge: .trailing))
+                        if vm.coinList.filter { favorite.contains($0) }.count != 0 {
+                            watchList
+                                .transition(.move(edge: .trailing))
+                        } else {
+                            VStack (alignment: .center) {
+                                HStack {
+                                    Image(systemName: "star")
+                                        .environment(\.symbolVariants, .none)
+                                    Text("No favorite coin found!")
+                                }
+                                    .padding()
+                                Text("Start adding by swipping left on the main list" + "\n" + "or clicking ⭐️ in detail view")
+                                    .font(.caption)
+                                    .multilineTextAlignment(.center)
+                            }
+                                .foregroundColor(Color.theme.secondaryText)
+                                .font(.headline)
+                                .padding()
+                        }
+
                     }
                 }
             }
@@ -65,19 +88,21 @@ struct HomeView: View {
                 isActive: $isViewingDetail,
                 label: { EmptyView() })
         )
-
     }
 }
 
+@available(iOS 15.0, *)
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .preferredColorScheme(.light)
+            .preferredColorScheme(.dark)
             .environmentObject(dev.homeVM)
+            .environmentObject(Favorites())
     }
 }
 
 
+@available(iOS 15.0, *)
 extension HomeView {
 
     private var homeHeader: some View {
@@ -131,7 +156,27 @@ extension HomeView {
                     .onTapGesture {
                     seque(coin: coin)
                 }
+                    .swipeActions(edge: .trailing, content: {
+                    if favorite.contains(coin) {
+                        Button {
+                            favorite.remove(coin)
+                        } label: {
+                            Label("Remove from Watchlist", systemImage: "star")
+                        }
+                            .tint(.red)
+                    } else {
+                        Button {
+                            favorite.add(coin)
+                        } label: {
+                            Label("Add to Watchlist", systemImage: "star")
+                                .environment(\.symbolVariants, .none)
+                        }
+                            .tint(.green)
+
+                    }
+                })
             }
+                .listRowBackground(Color.theme.background)
         }
             .listStyle(PlainListStyle())
 
@@ -144,11 +189,23 @@ extension HomeView {
 
     private var watchList: some View {
         List {
-            ForEach(vm.watchList) { coin in
+            ForEach(vm.coinList.filter { favorite.contains($0) }) { coin in
                 CardView(coin: coin)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .listRowInsets(.init(top: 10, leading: 10, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                    seque(coin: coin)
+                }
+                    .swipeActions(edge: .trailing) {
+                    Button {
+                        favorite.remove(coin)
+                    } label: {
+                        Label("Remove from Watchlist", systemImage: "star")
+                    }
+                        .tint(.red)
+                }
             }
-                .listStyle(PlainListStyle())
+                .listRowBackground(Color.theme.background)
         }
+            .listStyle(PlainListStyle())
     }
 }

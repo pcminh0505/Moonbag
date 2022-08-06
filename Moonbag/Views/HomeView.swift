@@ -15,23 +15,9 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-
-enum ListID: String, CaseIterable, Hashable, Identifiable {
-    case coinList = "coinList"
-    case watchList = "watchList"
-
-    var id: Self {
-        self
-    }
-}
-
-
-@available(iOS 15.0, *)
 struct HomeView: View {
     @EnvironmentObject private var vm: HomeViewModel
     @EnvironmentObject var favorite: Favorites
-
-    @State private var listID: ListID = .coinList
     
     @State private var showWatchlist: Bool = false
     @State private var selectedCoin: CoinModel? = nil
